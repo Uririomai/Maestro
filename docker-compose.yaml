@@ -1,0 +1,56 @@
+services:
+
+  backend:
+    build: ./backend
+    env_file:
+      - backend/config/prod.env
+    ports:
+      - 8082:8082
+    networks:
+      - foreign_key_nw
+    command: ./build
+
+  frontend:
+    build: ./frontend
+    ports:
+      - 5173:5173
+    networks:
+      - foreign_key_nw
+    command: ["npm", "run", "dev"]
+    depends_on:
+     - backend
+
+  postgresql:
+    image: postgres:16
+    ports:
+      - "5000:5432"
+    environment:
+      POSTGRES_DB: maestro
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    networks:
+      - foreign_key_nw
+    healthcheck:
+      test: pg_isready -U postgres -d test_db
+      interval: 20s
+      timeout: 20s
+      retries: 5
+
+  migrate:
+    image: migrate/migrate
+    volumes:
+      - ./backend/migrations:/database
+    networks:
+      - foreign_key_nw
+    command: [ "-path", "/database", "-database",  "postgresql://postgres:postgres@postgresql:5432/test_db?sslmode=disable", "up" ]
+    depends_on:
+      postgresql:
+        condition: service_healthy
+
+volumes:
+  postgresql: {}
+
+networks:
+  foreign_key_nw: { }

@@ -1,37 +1,36 @@
 services:
 
-  backend:
-    build: ./backend
-    env_file:
-      - backend/config/prod.env
-    ports:
-      - 8082:8082
-    networks:
-      - foreign_key_nw
-    command: ./build
-
-  frontend:
-    build: ./frontend
-    ports:
-      - 5173:5173
-    networks:
-      - foreign_key_nw
-    command: ["npm", "run", "dev"]
-    depends_on:
-     - backend
+#  backend:
+#    build: ./backend
+## TODO: добавить IN_DOCKER
+#    env_file:
+#      - backend/.env
+#    ports:
+#      - 8082:8082
+#    networks:
+#      - maestro_nw
+#    command: ./build
+#
+#  frontend:
+#    build: ./frontend
+#    ports:
+#      - 5173:5173
+#    networks:
+#      - maestro_nw
+#    command: ["npm", "run", "dev"]
+#    depends_on:
+#     - backend
 
   postgresql:
     image: postgres:16
     ports:
-      - "5000:5432"
-    environment:
-      POSTGRES_DB: maestro
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      - 5000:5432
+    env_file:
+      - ./backend/.env
     volumes:
       - postgresql:/var/lib/postgresql/data
     networks:
-      - foreign_key_nw
+      - maestro_nw
     healthcheck:
       test: pg_isready -U postgres -d test_db
       interval: 20s
@@ -40,11 +39,13 @@ services:
 
   migrate:
     image: migrate/migrate
+    env_file:
+      - ./backend/.env
     volumes:
       - ./backend/migrations:/database
     networks:
-      - foreign_key_nw
-    command: [ "-path", "/database", "-database",  "postgresql://postgres:postgres@postgresql:5432/test_db?sslmode=disable", "up" ]
+      - maestro_nw
+    command: [ "-path", "/database", "-database",  "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB}?sslmode=disable", "up" ]
     depends_on:
       postgresql:
         condition: service_healthy
@@ -53,4 +54,4 @@ volumes:
   postgresql: {}
 
 networks:
-  foreign_key_nw: { }
+  maestro_nw: { }

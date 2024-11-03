@@ -1,0 +1,31 @@
+@import '../../styles/scss/mixins';
+@import '../../styles/scss/media';
+
+.button {
+	@include reset-button;
+
+	position: relative;
+	height: var(--button-height);
+	width: 100%;
+	text-align: center;
+	border: 2px solid var(--color-gray-back);
+	border-radius: var(--border-radius);
+	cursor: pointer;
+
+	&__img {
+		position: absolute;
+		@include square(20px);
+
+		left: 8px;
+	}
+
+	&__text {
+		font-size: 15px;
+		line-height: 20px;
+	}
+
+	@include hover {
+		opacity: 0.8;
+		transform: scale(1.05);
+	}
+}

@@ -1,0 +1,88 @@
+basePath: /api
+definitions:
+  model.AdminEmailPasswordRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  model.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+host: localhost:8082
+info:
+  contact: {}
+  title: Maestro
+  version: "1.0"
+paths:
+  /admin/sign-in:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: sign in
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.AdminEmailPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: SingIn admin
+      tags:
+      - admin
+  /admin/sign-up:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: sign up
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.AdminEmailPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: SingUp admin
+      tags:
+      - admin
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: X-Token
+    type: apiKey
+swagger: "2.0"

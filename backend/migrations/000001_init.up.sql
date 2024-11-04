@@ -3,15 +3,15 @@ CREATE TABLE IF NOT EXISTS admins (
     email                 TEXT UNIQUE NOT NULL ,
     password_hash         TEXT NOT NULL ,
 
-    first_name            TEXT DEFAULT '',
-    last_name             TEXT DEFAULT '',
-    father_name           TEXT DEFAULT '',
-    city                  TEXT DEFAULT '',
-    telegram              TEXT DEFAULT '',
-    image_id              BIGINT DEFAULT 0,
+    first_name            TEXT NOT NULL DEFAULT '',
+    last_name             TEXT NOT NULL DEFAULT '',
+    father_name           TEXT NOT NULL DEFAULT '',
+    city                  TEXT NOT NULL DEFAULT '',
+    telegram              TEXT NOT NULL DEFAULT '',
+    image_id              BIGINT NOT NULL DEFAULT 0,
 
-    email_notification    BOOLEAN DEFAULT false,
-    telegram_notification BOOLEAN DEFAULT false
+    email_notification    BOOLEAN NOT NULL DEFAULT false,
+    telegram_notification BOOLEAN NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS websites (

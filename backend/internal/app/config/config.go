@@ -11,6 +11,8 @@ import (
 const ENVInDocker = "IN_DOCKER"
 
 type Config struct {
+	JWTSecret string `env:"JWT_SECRET"`
+
 	Listener ListenerConfig `envPrefix:"LISTENER_"`
 	Postgres PostgresConfig `envPrefix:"POSTGRES_"`
 }

@@ -1,16 +1,17 @@
 services:
 
-#  backend:
-#    build: ./backend
-## TODO: добавить IN_DOCKER
-#    env_file:
-#      - backend/.env
-#    ports:
-#      - 8082:8082
-#    networks:
-#      - maestro_nw
-#    command: ./build
-#
+  backend:
+    build: ./backend
+    env_file:
+      - backend/.env
+    ports:
+      - 8082:8082
+    networks:
+      - maestro_nw
+    depends_on:
+      postgresql:
+        condition: service_healthy
+
 #  frontend:
 #    build: ./frontend
 #    ports:

@@ -23,9 +23,9 @@ func Run(ctx context.Context) error {
 	}
 	defer repo.Close(ctx)
 
-	srv := service.New(repo)
+	srv := service.New(repo, cfg.JWTSecret)
 
-	r := router.New(srv)
+	r := router.New(ctx, srv, cfg.Listener.GetHostPort())
 
 	server := httpserver.New(
 		cfg.Listener.GetHostPort(), r,

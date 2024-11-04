@@ -1,0 +1,26 @@
+:root {
+	--color-main: rgba(33, 33, 33, 1);
+	--color-light: rgba(252, 252, 252, 1);
+	--color-button: #000000;
+	--color-gray-back: rgba(82, 82, 82, 0.09);
+	--color-gray-text: rgba(33, 33, 33, 0.62);
+	--color-pagination-back: rgba(204, 204, 204, 1);
+	--color-black: #000000;
+
+	--border-radius: 8px;
+	--border-radius-large: 16px;
+
+	--shadow-default: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+	--font-family-base: 'PlusJakartaSans', sans-serif;
+
+	--container-width: 1344px;
+	--container-padding-x: 0px;
+
+	--section-padding-top-y: 0px;
+
+	--input-height: 36px;
+	--button-height: 36px;
+
+	--transition-duration: 0.2s;
+}

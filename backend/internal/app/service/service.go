@@ -8,6 +8,9 @@ import (
 type repository interface {
 	CreateAdmin(ctx context.Context, email, password string) (int, error)
 	GetAdminIdByEmailPassword(ctx context.Context, email, passwordHash string) (*model.Admin, error)
+
+	CreateWebsite(ctx context.Context, alias string, adminId int) error
+	AdminHaveWebsite(ctx context.Context, adminID int) (bool, error)
 }
 
 type Service struct {

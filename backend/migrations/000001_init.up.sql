@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS admins (
     id                    BIGSERIAL PRIMARY KEY,
-    email                 TEXT UNIQUE NOT NULL ,
-    password_hash         TEXT NOT NULL ,
+    email                 TEXT UNIQUE NOT NULL,
+    password_hash         TEXT NOT NULL,
 
     first_name            TEXT NOT NULL DEFAULT '',
     last_name             TEXT NOT NULL DEFAULT '',
@@ -16,35 +16,35 @@ CREATE TABLE IF NOT EXISTS admins (
 
 CREATE TABLE IF NOT EXISTS websites (
     id                SERIAL PRIMARY KEY,
-    admin_id          BIGINT NOT NULL ,
-    alias             TEXT UNIQUE NOT NULL ,
+    admin_id          BIGINT NOT NULL,
+    alias             TEXT UNIQUE NOT NULL,
 
-    background_color  TEXT DEFAULT 'white',
-    text_color        TEXT DEFAULT 'black',
-    font              TEXT DEFAULT 'Arial',
-
-    main_one          TEXT DEFAULT '',
-    main_two          TEXT DEFAULT '',
-
-    about_one         TEXT DEFAULT '',
-    about_two         TEXT DEFAULT '',
-    about_three       TEXT DEFAULT '',
-    about_four        TEXT DEFAULT '',
-    about_five        TEXT DEFAULT '',
-    about_six         TEXT DEFAULT '',
-    about_image_one   INTEGER DEFAULT 0,
-    about_image_two   INTEGER DEFAULT 0,
-    about_image_three INTEGER DEFAULT 0,
-    about_image_four  INTEGER DEFAULT 0,
-
-    new_product_one   TEXT DEFAULT '',
-    product_one       TEXT DEFAULT '',
-
-    contact_one       TEXT DEFAULT '',
-    contact_two       TEXT DEFAULT '',
-    contact_three     TEXT DEFAULT '',
-    contact_four      TEXT DEFAULT '',
-    contact_five      TEXT DEFAULT '',
+--     background_color  TEXT DEFAULT 'white',
+--     text_color        TEXT DEFAULT 'black',
+--     font              TEXT DEFAULT 'Arial',
+--
+--     main_one          TEXT DEFAULT '',
+--     main_two          TEXT DEFAULT '',
+--
+--     about_one         TEXT DEFAULT '',
+--     about_two         TEXT DEFAULT '',
+--     about_three       TEXT DEFAULT '',
+--     about_four        TEXT DEFAULT '',
+--     about_five        TEXT DEFAULT '',
+--     about_six         TEXT DEFAULT '',
+--     about_image_one   INTEGER DEFAULT 0,
+--     about_image_two   INTEGER DEFAULT 0,
+--     about_image_three INTEGER DEFAULT 0,
+--     about_image_four  INTEGER DEFAULT 0,
+--
+--     new_product_one   TEXT DEFAULT '',
+--     product_one       TEXT DEFAULT '',
+--
+--     contact_one       TEXT DEFAULT '',
+--     contact_two       TEXT DEFAULT '',
+--     contact_three     TEXT DEFAULT '',
+--     contact_four      TEXT DEFAULT '',
+--     contact_five      TEXT DEFAULT '',
 
     FOREIGN KEY (admin_id) REFERENCES admins (id)
 );

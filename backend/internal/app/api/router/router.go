@@ -3,6 +3,7 @@ package router
 import (
 	"context"
 	"fmt"
+	"github.com/Nikita-Kolbin/Maestro/internal/app/api/website"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -12,10 +13,12 @@ import (
 
 	_ "github.com/Nikita-Kolbin/Maestro/docs"
 	"github.com/Nikita-Kolbin/Maestro/internal/app/api/admin"
+	authMW "github.com/Nikita-Kolbin/Maestro/internal/pkg/middleware"
 )
 
 type service interface {
 	admin.Service
+	website.Service
 }
 
 func New(ctx context.Context, srv service, address string) http.Handler {
@@ -25,7 +28,7 @@ func New(ctx context.Context, srv service, address string) http.Handler {
 	router.Use(middleware.RequestID)
 	router.Use(middleware.Recoverer)
 	router.Use(middleware.URLFormat)
-	//authMiddleware := authMW.Auth
+	authMiddleware := authMW.Auth(srv.GetJWTSecret())
 
 	// CORS
 	router.Use(cors.Handler(cors.Options{
@@ -40,10 +43,13 @@ func New(ctx context.Context, srv service, address string) http.Handler {
 
 	// APIs
 	adminAPI := admin.NewAPI(srv)
+	websiteAPI := website.NewAPI(srv)
 
 	// handlers
-	router.Post("/api/admin/sign-up", adminAPI.SignUp)
-	router.Post("/api/admin/sign-in", adminAPI.SignIn)
+	router.Post("/api/admin/sign-up", adminAPI.AdminSignUp)
+	router.Post("/api/admin/sign-in", adminAPI.AdminSignIn)
+
+	router.Post("/api/website/create", authMiddleware(websiteAPI.CreateWebsite))
 
 	return router
 }

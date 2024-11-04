@@ -25,7 +25,7 @@ func (r *Repository) CreateAdmin(ctx context.Context, email, passwordHash string
 	return id, nil
 }
 
-func (r *Repository) GetAdminIdByEmailPassword(ctx context.Context, email, passwordHash string) (*model.Admin, error) {
+func (r *Repository) GetAdminByEmailPassword(ctx context.Context, email, passwordHash string) (*model.Admin, error) {
 	query := `
 	SELECT id, email, first_name, last_name, father_name, city, 
        telegram, image_id, email_notification, telegram_notification

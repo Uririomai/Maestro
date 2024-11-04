@@ -3,6 +3,7 @@ package router
 import (
 	"context"
 	"fmt"
+	"github.com/Nikita-Kolbin/Maestro/internal/app/api/customer"
 	"github.com/Nikita-Kolbin/Maestro/internal/app/api/website"
 	"net/http"
 
@@ -19,6 +20,7 @@ import (
 type service interface {
 	admin.Service
 	website.Service
+	customer.Service
 }
 
 func New(ctx context.Context, srv service, address string) http.Handler {
@@ -44,12 +46,16 @@ func New(ctx context.Context, srv service, address string) http.Handler {
 	// APIs
 	adminAPI := admin.NewAPI(srv)
 	websiteAPI := website.NewAPI(srv)
+	customerAPI := customer.NewAPI(srv)
 
 	// handlers
 	router.Post("/api/admin/sign-up", adminAPI.AdminSignUp)
 	router.Post("/api/admin/sign-in", adminAPI.AdminSignIn)
 
 	router.Post("/api/website/create", authMiddleware(websiteAPI.CreateWebsite))
+
+	router.Post("/api/customer/sign-up", customerAPI.CustomerSignUp)
+	router.Post("/api/customer/sign-in", customerAPI.CustomerSignIn)
 
 	return router
 }

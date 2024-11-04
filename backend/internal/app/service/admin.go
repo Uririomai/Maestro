@@ -23,5 +23,5 @@ func (s *Service) GetAdminIdByEmailPassword(ctx context.Context, email, password
 
 	hash := generatePasswordHash(password)
 
-	return s.repo.GetAdminIdByEmailPassword(ctx, email, hash)
+	return s.repo.GetAdminByEmailPassword(ctx, email, hash)
 }

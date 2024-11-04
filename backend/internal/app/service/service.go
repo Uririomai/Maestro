@@ -2,15 +2,19 @@ package service
 
 import (
 	"context"
+
 	"github.com/Nikita-Kolbin/Maestro/internal/app/model"
 )
 
 type repository interface {
 	CreateAdmin(ctx context.Context, email, password string) (int, error)
-	GetAdminIdByEmailPassword(ctx context.Context, email, passwordHash string) (*model.Admin, error)
+	GetAdminByEmailPassword(ctx context.Context, email, passwordHash string) (*model.Admin, error)
 
 	CreateWebsite(ctx context.Context, alias string, adminId int) error
 	AdminHaveWebsite(ctx context.Context, adminID int) (bool, error)
+
+	CreateCustomer(ctx context.Context, alias, email, passwordHash string) (int, error)
+	GetCustomerByEmailPassword(ctx context.Context, alias, email, passwordHash string) (*model.Customer, error)
 }
 
 type Service struct {

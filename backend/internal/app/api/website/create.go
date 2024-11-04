@@ -73,6 +73,7 @@ func (i *Website) CreateWebsite(w http.ResponseWriter, r *http.Request) {
 
 	logger.Info(ctx, "[CreateWebsite] website created", "alias", req.Alias)
 
+	// TODO: возвращать id и alias
 	render.Status(r, http.StatusOK)
 	render.JSON(w, r, nil)
 }

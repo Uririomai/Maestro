@@ -12,6 +12,15 @@ definitions:
       alias:
         type: string
     type: object
+  model.CustomerAliasEmailPasswordRequest:
+    properties:
+      alias:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+    type: object
   model.ErrorResponse:
     properties:
       error:
@@ -85,6 +94,68 @@ paths:
       summary: SingUp admin
       tags:
       - admin
+  /customer/sign-in:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: sign in
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.CustomerAliasEmailPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: SingIn customer
+      tags:
+      - customer
+  /customer/sign-up:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: sign up
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.CustomerAliasEmailPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: SingUp customer
+      tags:
+      - customer
   /website/create:
     post:
       consumes:

@@ -51,22 +51,23 @@ CREATE TABLE IF NOT EXISTS websites (
 
 CREATE TABLE IF NOT EXISTS customers (
     id                    BIGSERIAL PRIMARY KEY,
-    website_id            INTEGER NOT NULL,
+    website_alias         TEXT NOT NULL,
     email                 TEXT NOT NULL,
     password_hash         TEXT NOT NULL,
 
-    first_name            TEXT DEFAULT '',
-    last_name             TEXT DEFAULT '',
-    father_name           TEXT DEFAULT '',
-    phone                 TEXT DEFAULT '',
-    telegram              TEXT DEFAULT '',
-    delivery_type         TEXT DEFAULT '',
-    payment_type          TEXT DEFAULT '',
+    first_name            TEXT NOT NULL DEFAULT '',
+    last_name             TEXT NOT NULL DEFAULT '',
+    father_name           TEXT NOT NULL DEFAULT '',
+    phone                 TEXT NOT NULL DEFAULT '',
+    telegram              TEXT NOT NULL DEFAULT '',
+    delivery_type         TEXT NOT NULL DEFAULT '',
+    payment_type          TEXT NOT NULL DEFAULT '',
 
-    email_notification    INTEGER DEFAULT 0,
-    telegram_notification INTEGER DEFAULT 0,
+    email_notification    BOOLEAN NOT NULL DEFAULT false,
+    telegram_notification BOOLEAN NOT NULL DEFAULT false,
 
-    FOREIGN KEY (website_id) REFERENCES websites (id)
+    UNIQUE (website_alias, email),
+    FOREIGN KEY (website_alias) REFERENCES websites (alias)
 );
 
 CREATE TABLE IF NOT EXISTS images (

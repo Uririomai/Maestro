@@ -5,11 +5,18 @@ import styles from './sidebar.module.scss'
 
 const Sidebar = () => {
 	return (
-		<aside class={styles.sidebar}>
-			<nav className={styles.nav}>
+		<aside className={styles.sidebar}>
+			<nav className={`${styles.sidebar__nav} ${styles.nav}`}>
 				<ul className={styles.nav__list}>
 					<li className={styles.nav__item}>
-						<NavLink to={`/cabinet`}>Кабинет</NavLink>
+						<NavLink
+							to={`/cabinet`}
+							className={({ isActive }) =>
+								isActive ? 'nav__item--active' : ''
+							}
+						>
+							Кабинет
+						</NavLink>
 					</li>
 					<li className={styles.nav__item}>
 						<NavLink to={`/orders`}>Заказы</NavLink>

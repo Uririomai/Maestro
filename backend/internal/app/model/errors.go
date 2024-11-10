@@ -13,4 +13,5 @@ var (
 	ErrAdminHaveWebsite     = errors.New("admin already have website")
 	ErrInvalidActive        = errors.New("invalid active status")
 	ErrInvalidNotification  = errors.New("invalid notification status")
+	ErrWebsiteNotFound      = errors.New("website not found")
 )

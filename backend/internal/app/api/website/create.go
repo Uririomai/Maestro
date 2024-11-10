@@ -17,7 +17,7 @@ import (
 // @Accept json
 // @Produce  json
 // @Param input body model.CreateWebsiteRequest true "alias new website"
-// @Success      200   {object}   nil
+// @Success      200   {object}   model.WebsiteDTO
 // @Failure      400   {object}   model.ErrorResponse
 // @Failure      403   {object}   model.ErrorResponse
 // @Failure      409   {object}   model.ErrorResponse
@@ -51,7 +51,7 @@ func (i *Website) CreateWebsite(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = i.srv.CreateWebsite(ctx, req.Alias, adminId)
+	website, err := i.srv.CreateWebsite(ctx, req.Alias, adminId)
 	if errors.Is(err, model.ErrAdminHaveWebsite) {
 		logger.Error(ctx, "[CreateWebsite] admin", "admin already have website", "id", adminId)
 		render.Status(r, http.StatusConflict)
@@ -73,7 +73,6 @@ func (i *Website) CreateWebsite(w http.ResponseWriter, r *http.Request) {
 
 	logger.Info(ctx, "[CreateWebsite] website created", "alias", req.Alias)
 
-	// TODO: возвращать id и alias
 	render.Status(r, http.StatusOK)
-	render.JSON(w, r, nil)
+	render.JSON(w, r, model.FromWebsiteToDTO(website))
 }

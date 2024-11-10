@@ -1,9 +1,13 @@
 package website
 
-import "context"
+import (
+	"context"
+	"github.com/Nikita-Kolbin/Maestro/internal/app/model"
+)
 
 type Service interface {
-	CreateWebsite(ctx context.Context, alias string, adminId int) error
+	CreateWebsite(ctx context.Context, alias string, adminId int) (*model.Website, error)
+	GetWebsiteByAdminId(ctx context.Context, adminId int) (*model.Website, error)
 }
 
 type Website struct {

@@ -70,22 +70,17 @@ CREATE TABLE IF NOT EXISTS customers (
     FOREIGN KEY (website_alias) REFERENCES websites (alias)
 );
 
-CREATE TABLE IF NOT EXISTS images (
-    id   BIGSERIAL PRIMARY KEY,
-    path TEXT
-);
-
 CREATE TABLE IF NOT EXISTS products (
-    id          BIGSERIAL PRIMARY KEY,
-    website_id  BIGINT NOT NULL,
-    name        TEXT,
-    description TEXT,
-    price       INTEGER,
-    images_id   TEXT,
-    active      BOOLEAN,
-    tags        TEXT DEFAULT '',
+    id             BIGSERIAL PRIMARY KEY,
+    website_alias  TEXT NOT NULL,
+    name           TEXT NOT NULL,
+    description    TEXT NOT NULL,
+    price          INTEGER NOT NULL,
+    image_ids      TEXT[] NOT NULL,
+    active         BOOLEAN NOT NULL,
+    tags           TEXT[] NOT NULL,
 
-    FOREIGN KEY (website_id) REFERENCES websites (id)
+    FOREIGN KEY (website_alias) REFERENCES websites (alias)
 );
 
 CREATE TABLE IF NOT EXISTS carts (
@@ -111,7 +106,7 @@ CREATE TABLE IF NOT EXISTS saved_products (
     name        TEXT,
     description TEXT,
     price       INTEGER,
-    images_id   TEXT,
+    images_id   TEXT[],
     active      INTEGER,
     tags        TEXT DEFAULT '',
 

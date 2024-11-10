@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/Nikita-Kolbin/Maestro/internal/app/api/customer"
+	"github.com/Nikita-Kolbin/Maestro/internal/app/api/product"
 	"github.com/Nikita-Kolbin/Maestro/internal/app/api/website"
 	"net/http"
 
@@ -21,6 +22,7 @@ type service interface {
 	admin.Service
 	website.Service
 	customer.Service
+	product.Service
 }
 
 func New(ctx context.Context, srv service, address string) http.Handler {
@@ -47,15 +49,20 @@ func New(ctx context.Context, srv service, address string) http.Handler {
 	adminAPI := admin.NewAPI(srv)
 	websiteAPI := website.NewAPI(srv)
 	customerAPI := customer.NewAPI(srv)
+	productAPI := product.NewAPI(srv)
 
 	// handlers
 	router.Post("/api/admin/sign-up", adminAPI.AdminSignUp)
 	router.Post("/api/admin/sign-in", adminAPI.AdminSignIn)
 
 	router.Post("/api/website/create", authMiddleware(websiteAPI.CreateWebsite))
+	router.Get("/api/website/get-my-website", authMiddleware(websiteAPI.GetMyWebsite))
 
 	router.Post("/api/customer/sign-up", customerAPI.CustomerSignUp)
 	router.Post("/api/customer/sign-in", customerAPI.CustomerSignIn)
+
+	router.Post("/api/product/create", authMiddleware(productAPI.CreateProduct))
+	router.Get("/api/product/get-active-by-alias", productAPI.GetActiveProductByAlias)
 
 	return router
 }

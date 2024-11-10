@@ -12,7 +12,7 @@ type CustomerTokenResponse struct {
 
 type Customer struct {
 	Id                   int    `db:"id"`
-	WebsiteAlias         int    `db:"website_alias"`
+	WebsiteAlias         string `db:"website_alias"`
 	Email                string `db:"email"`
 	FirstName            string `db:"first_name"`
 	LastName             string `db:"last_name"`
@@ -27,7 +27,7 @@ type Customer struct {
 
 type CustomerDTO struct {
 	Id                   int    `json:"id"`
-	WebsiteAlias         int    `json:"website_alias"`
+	WebsiteAlias         string `json:"website_alias"`
 	Email                string `json:"email"`
 	FirstName            string `json:"first_name"`
 	LastName             string `json:"last_name"`

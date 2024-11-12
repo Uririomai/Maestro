@@ -12,7 +12,7 @@ const Header = () => {
 		<header className={styles.header + ` container`}>
 			<div className={styles.header__wrapper}>
 				<div className={styles.header__logo}>
-					<Link to={ROUTES.HOME}>
+					<Link to={ROUTES.SIGNUP}>
 						<img src={LOGO} alt='logo' />
 					</Link>
 				</div>

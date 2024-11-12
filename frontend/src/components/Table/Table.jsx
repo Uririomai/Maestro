@@ -6,20 +6,24 @@ const Table = ({ data, column }) => {
 	return (
 		<section className={styles.table}>
 			<div className={styles.table__filters}>
-				<div className={styles.table__search}>Поиск заказов...</div>
+				<input placeholder='Поиск...' className={styles.table__search}></input>
 				<div className={styles.table__sort}>
 					Сортировать по <span className={styles.table__sortarrow}> </span>
 				</div>
 			</div>
 			<table className={styles.table__body}>
-				<tr>
-					{column.map((item, index) => (
-						<TableHeadItem item={item} />
+				<thead>
+					<tr>
+						{column.map((item, index) => (
+							<TableHeadItem item={item} />
+						))}
+					</tr>
+				</thead>
+				<tbody>
+					{data.map((item, index) => (
+						<TableRow item={item} column={column} />
 					))}
-				</tr>
-				{data.map((item, index) => (
-					<TableRow item={item} column={column} />
-				))}
+				</tbody>
 			</table>
 		</section>
 	)

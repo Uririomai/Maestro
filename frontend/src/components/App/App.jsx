@@ -7,6 +7,8 @@ import Sidebar from '../Sidebar/Sidebar'
 import Orders from '../Orders/Orders'
 
 import styles from './app.scss'
+import Clients from '../Clients/Clients'
+import Products from '../Products/Products'
 
 const App = () => {
 	return (
@@ -17,9 +19,8 @@ const App = () => {
 
 				<section className='personal-cabinet container'>
 					<Sidebar />
-					<Orders />
+					<AppRoutes />
 				</section>
-				<AppRoutes />
 			</div>
 		</div>
 	)

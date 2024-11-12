@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import Table from '../Table/Table'
 
-const Orders = () => {
+const Clients = () => {
 	const [dataTable, setDataTable] = useState([])
 
 	useEffect(() => {
@@ -17,10 +17,10 @@ const Orders = () => {
 
 	const columns = [
 		{ heading: 'id', value: 'id' },
-		{ heading: 'Сумма', value: 'name' },
-		{ heading: 'Дата', value: 'username' },
-		{ heading: 'Клиент', value: 'phone' },
-		{ heading: 'Статус', value: 'website' },
+		{ heading: 'name', value: 'name' },
+		{ heading: 'email', value: 'email' },
+		{ heading: 'phone', value: 'phone' },
+		{ heading: 'website', value: 'website' },
 	]
 
 	/* const columns = [
@@ -34,4 +34,4 @@ const Orders = () => {
 	return <Table data={dataTable} column={columns} />
 }
 
-export default Orders
+export default Clients

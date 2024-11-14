@@ -10,25 +10,23 @@
 		display: flex;
 		justify-content: start;
 		align-items: center;
-		padding-left: 16px;
 		max-width: 240px;
 		height: 52px;
-		border-left: solid 3px var(--color-gray-back);
 		margin-bottom: 4px;
+	}
 
-		&::after {
-			position: absolute;
-			content: ' ';
-			transition-duration: var(--transition-duration);
-			translate: -50%;
-			height: 52px;
-			width: 3px;
-		}
+	&__link {
+		display: inherit;
+		height: inherit;
+		width: inherit;
+		box-sizing: border-box;
 
-		&--active {
-			position: relative;
+		color: var(--color-black);
+		padding-left: 16px;
+		align-items: center;
 
-			height: 100%;
-		}
+		border-left: solid 3px var(--color-gray-border);
+		
+	
 	}
 }

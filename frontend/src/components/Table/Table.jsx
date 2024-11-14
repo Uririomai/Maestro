@@ -30,12 +30,14 @@ const Table = ({ data, column }) => {
 }
 
 const TableHeadItem = ({ item }) => (
-	<th className={styles.table__header}>{item.heading}</th>
+	<th className={styles.table__header} key={item.id}>
+		{item.heading}
+	</th>
 )
 const TableRow = ({ item, column }) => (
 	<tr className={styles.table__row}>
 		{column.map((columnItem, index) => {
-			return <td>{item[columnItem.value]}</td>
+			return <td className={styles.table__cell}>{item[columnItem.value]}</td>
 		})}
 	</tr>
 )

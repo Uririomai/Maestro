@@ -7,6 +7,7 @@
 	width: 100%;
 	&__body {
 		width: 100%;
+		border-spacing: 0;
 	}
 
 	&__filters {
@@ -67,6 +68,17 @@
 		@include hover {
 			transition-duration: var(--transition-duration);
 			background-color: var(--color-gray-back);
+		}
+	}
+
+	&__cell {
+		&:first-child {
+			border-top-left-radius: var(--border-radius-large);
+			border-bottom-left-radius: var(--border-radius-large);
+		}
+		&:last-child {
+			border-top-right-radius: var(--border-radius-large);
+			border-bottom-right-radius: var(--border-radius-large);
 		}
 	}
 }

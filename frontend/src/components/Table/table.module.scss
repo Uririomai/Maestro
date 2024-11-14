@@ -5,6 +5,7 @@
 	font-size: 15px;
 	line-height: 20px;
 	width: 100%;
+	padding-inline: 78px;
 	&__body {
 		width: 100%;
 		border-spacing: 0;
@@ -18,7 +19,7 @@
 
 	&__search,
 	&__sort {
-		padding: 8px 0 8px 16px;
+		padding: 8px 8px 8px 16px;
 
 		width: 147px;
 		height: 36px;
@@ -72,9 +73,17 @@
 	}
 
 	&__cell {
+		position: relative;
 		&:first-child {
-			border-top-left-radius: var(--border-radius-large);
-			border-bottom-left-radius: var(--border-radius-large);
+			&::before {
+				position: absolute;
+				content: '';
+				left: -78px;
+				width: 78px;
+				height: inherit;
+				border-top-left-radius: var(--border-radius-large);
+				border-bottom-left-radius: var(--border-radius-large);
+			}
 		}
 		&:last-child {
 			border-top-right-radius: var(--border-radius-large);

@@ -1,8 +1,6 @@
 import React from 'react'
 
-import styles from './table.module.scss'
-
-const Table = ({ data, column }) => {
+const Table = ({ data, column, styles }) => {
 	return (
 		<section className={styles.table}>
 			<div className={styles.table__filters}>
@@ -15,13 +13,13 @@ const Table = ({ data, column }) => {
 				<thead>
 					<tr>
 						{column.map((item, index) => (
-							<TableHeadItem item={item} />
+							<TableHeadItem item={item} styles={styles} />
 						))}
 					</tr>
 				</thead>
 				<tbody>
 					{data.map((item, index) => (
-						<TableRow item={item} column={column} />
+						<TableRow item={item} column={column} styles={styles} />
 					))}
 				</tbody>
 			</table>
@@ -29,12 +27,12 @@ const Table = ({ data, column }) => {
 	)
 }
 
-const TableHeadItem = ({ item }) => (
+const TableHeadItem = ({ item, styles }) => (
 	<th className={styles.table__header} key={item.id}>
 		{item.heading}
 	</th>
 )
-const TableRow = ({ item, column }) => (
+const TableRow = ({ item, column, styles }) => (
 	<tr className={styles.table__row}>
 		{column.map((columnItem, index) => {
 			return <td className={styles.table__cell}>{item[columnItem.value]}</td>

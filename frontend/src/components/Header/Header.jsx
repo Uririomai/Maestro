@@ -15,7 +15,7 @@ const Header = () => {
 		switch (location.pathname) {
 			case '/sign-up':
 				setLogoPosition(styles.headerLeft)
-				break;
+				break
 			default:
 				setLogoPosition(styles.header)
 				break

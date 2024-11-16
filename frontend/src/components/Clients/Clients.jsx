@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-
 import axios from 'axios'
 
 import Table from '../Table/Table'
+
+import stylesTable from '../Table/table.module.scss'
 
 const Clients = () => {
 	const [dataTable, setDataTable] = useState([])
@@ -31,7 +32,7 @@ const Clients = () => {
 		{ heading: 'Статус', value: 'status' },
 	] */
 
-	return <Table data={dataTable} column={columns} />
+	return <Table data={dataTable} column={columns} styles={stylesTable} />
 }
 
 export default Clients

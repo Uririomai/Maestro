@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-
 import axios from 'axios'
 
 import Table from '../Table/Table'
+
+import stylesTable from '../Table/table.module.scss'
 
 const Orders = () => {
 	const [dataTable, setDataTable] = useState([])
@@ -31,7 +32,7 @@ const Orders = () => {
 		{ heading: 'Статус', value: 'status' },
 	] */
 
-	return <Table data={dataTable} column={columns} />
+	return <Table data={dataTable} column={columns} styles={stylesTable} />
 }
 
 export default Orders

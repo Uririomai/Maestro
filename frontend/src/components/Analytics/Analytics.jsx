@@ -16,7 +16,7 @@ const Analytics = () => {
 			.then(response => {
 				setDataTable(response.data)
 			})
-			.catch(error => alert('setDataTable', error))
+			.catch(error => console.log('setDataTable', error))
 	}, [])
 
 	const columns = [

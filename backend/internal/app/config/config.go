@@ -15,6 +15,7 @@ type Config struct {
 
 	Listener ListenerConfig `envPrefix:"LISTENER_"`
 	Postgres PostgresConfig `envPrefix:"POSTGRES_"`
+	Minio    MinioConfig    `envPrefix:"MINIO_"`
 }
 
 type ListenerConfig struct {
@@ -34,6 +35,13 @@ type PostgresConfig struct {
 	DBMaxConnLifeTime time.Duration `env:"DB_MAX_CONN_LIFE_TIME" envDefault:"5m"`
 	DBMaxConnIdleTime time.Duration `env:"DB_MAX_CONN_IDLE_TIME" envDefault:"1m"`
 	DBTimeout         time.Duration `env:"DB_TIMEOUT" envDefault:"5s"`
+}
+
+type MinioConfig struct {
+	HostPort string `env:"HOST_PORT,required"`
+	Username string `env:"ROOT_USER,required"`
+	Password string `env:"ROOT_PASSWORD,required"`
+	UseSSL   bool   `env:"USE_SSL" envDefault:"false"`
 }
 
 func New() (*Config, error) {

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/Nikita-Kolbin/Maestro/internal/app/api/customer"
+	"github.com/Nikita-Kolbin/Maestro/internal/app/api/file"
 	"github.com/Nikita-Kolbin/Maestro/internal/app/api/product"
 	"github.com/Nikita-Kolbin/Maestro/internal/app/api/website"
 	"net/http"
@@ -23,9 +24,10 @@ type service interface {
 	website.Service
 	customer.Service
 	product.Service
+	file.Service
 }
 
-func New(ctx context.Context, srv service, address string) http.Handler {
+func New(_ context.Context, srv service, address string) http.Handler {
 	router := chi.NewRouter()
 
 	// middleware
@@ -50,6 +52,7 @@ func New(ctx context.Context, srv service, address string) http.Handler {
 	websiteAPI := website.NewAPI(srv)
 	customerAPI := customer.NewAPI(srv)
 	productAPI := product.NewAPI(srv)
+	fileAPI := file.NewAPI(srv)
 
 	// handlers
 	router.Post("/api/admin/sign-up", adminAPI.AdminSignUp)
@@ -63,6 +66,9 @@ func New(ctx context.Context, srv service, address string) http.Handler {
 
 	router.Post("/api/product/create", authMiddleware(productAPI.CreateProduct))
 	router.Get("/api/product/get-active-by-alias", productAPI.GetActiveProductByAlias)
+
+	router.Post("/api/file/upload-image", fileAPI.UploadImageFile)
+	router.Get("/api/file/get-image/{image-id}", fileAPI.GetImageFile)
 
 	return router
 }

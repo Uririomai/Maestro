@@ -2,8 +2,7 @@ services:
 
   backend:
     build: ./backend
-    env_file:
-      - backend/.env
+    env_file: ./backend/.env
     ports:
       - 8082:8082
     networks:
@@ -26,8 +25,7 @@ services:
     image: postgres:16
     ports:
       - 5000:5432
-    env_file:
-      - ./backend/.env
+    env_file: ./backend/.env
     volumes:
       - postgresql:/var/lib/postgresql/data
     networks:
@@ -40,19 +38,31 @@ services:
 
   migrate:
     image: migrate/migrate
-    env_file:
-      - ./backend/.env
+    env_file: ./backend/.env
     volumes:
       - ./backend/migrations:/database
     networks:
       - maestro_nw
-    command: [ "-path", "/database", "-database",  "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB}?sslmode=disable", "up" ]
+    command: [ "-path", "/database", "-database",  "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB_NAME}?sslmode=disable", "up" ]
     depends_on:
       postgresql:
         condition: service_healthy
 
+  minio:
+    image: minio/minio
+    env_file: ./backend/.env
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - minio_storage:/data
+    command: server --console-address ":9001" /data
+    networks:
+      - maestro_nw
+
 volumes:
   postgresql: {}
+  minio_storage: {}
 
 networks:
-  maestro_nw: { }
+  maestro_nw: {}

@@ -9,6 +9,7 @@ import (
 	"github.com/Nikita-Kolbin/Maestro/internal/app/service"
 	"github.com/Nikita-Kolbin/Maestro/internal/pkg/httpserver"
 	"github.com/Nikita-Kolbin/Maestro/internal/pkg/logger"
+	"github.com/Nikita-Kolbin/Maestro/internal/pkg/minioclient"
 )
 
 func Run(ctx context.Context) error {
@@ -23,7 +24,12 @@ func Run(ctx context.Context) error {
 	}
 	defer repo.Close(ctx)
 
-	srv := service.New(repo, cfg.JWTSecret)
+	stg, err := minioclient.New(ctx, cfg.Minio.HostPort, cfg.Minio.Username, cfg.Minio.Password, cfg.Minio.UseSSL)
+	if err != nil {
+		return fmt.Errorf("init storage failed: %w", err)
+	}
+
+	srv := service.New(repo, stg, cfg.JWTSecret)
 
 	r := router.New(ctx, srv, cfg.Listener.GetHostPort())
 

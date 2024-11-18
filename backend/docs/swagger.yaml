@@ -70,6 +70,11 @@ definitions:
       website_alias:
         type: string
     type: object
+  model.UploadFileResponse:
+    properties:
+      id:
+        type: string
+    type: object
   model.WebsiteDTO:
     properties:
       alias:
@@ -207,6 +212,68 @@ paths:
       summary: SingUp customer
       tags:
       - customer
+  /file/get-image/{image-id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: image id
+        in: path
+        name: image-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: integer
+            type: array
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Get image by id
+      tags:
+      - file
+  /file/upload-image:
+    post:
+      consumes:
+      - image/jpeg
+      parameters:
+      - description: image
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UploadFileResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Upload image
+      tags:
+      - file
   /product/create:
     post:
       consumes:

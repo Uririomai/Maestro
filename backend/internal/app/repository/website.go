@@ -8,10 +8,12 @@ import (
 )
 
 func (r *Repository) CreateWebsite(ctx context.Context, alias string, adminId int) (*model.Website, error) {
-	query := `INSERT INTO websites (alias, admin_id) VALUES ($1, $2)`
+	query := `
+	INSERT INTO websites (alias, admin_id) VALUES ($1, $2)
+	RETURNING id, alias, admin_id`
 
 	website := &model.Website{}
-	err := r.conn.GetContext(ctx, query, alias, adminId)
+	err := r.conn.GetContext(ctx, website, query, alias, adminId)
 	if isSQLError(err, model.UniqueConstraintViolationCode) {
 		return nil, model.ErrAliasTaken
 	}

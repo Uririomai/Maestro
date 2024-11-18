@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"io"
 
 	"github.com/Nikita-Kolbin/Maestro/internal/app/model"
 )
@@ -22,14 +23,21 @@ type repository interface {
 	GetActiveProductsByAlias(ctx context.Context, alias string) (model.ProductList, error)
 }
 
+type objectStorage interface {
+	PutObject(ctx context.Context, reader io.Reader, size int64, bucketName, contentType string) (_ string, err error)
+	GetObject(ctx context.Context, objectId, bucketName string) (io.Reader, string, error)
+}
+
 type Service struct {
 	jwtSecret string
 	repo      repository
+	storage   objectStorage
 }
 
-func New(repo repository, jwtSecret string) *Service {
+func New(repo repository, storage objectStorage, jwtSecret string) *Service {
 	return &Service{
 		jwtSecret: jwtSecret,
 		repo:      repo,
+		storage:   storage,
 	}
 }

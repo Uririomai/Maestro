@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import Table from '../Table/Table'
+import Sidebar from '../Sidebar/Sidebar'
+import cabinetStyles from '../Cabinet/cabinet.module.scss'
 
 import stylesTable from '../Table/table.module.scss'
 
@@ -32,7 +34,14 @@ const Clients = () => {
 		{ heading: 'Статус', value: 'status' },
 	] */
 
-	return <Table data={dataTable} column={columns} styles={stylesTable} />
+	return (
+		<>
+			<section className={cabinetStyles.personalCabinet + ` container`}>
+				<Sidebar />
+				<Table data={dataTable} column={columns} styles={stylesTable} />
+			</section>
+		</>
+	)
 }
 
 export default Clients

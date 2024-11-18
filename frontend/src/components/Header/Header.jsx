@@ -16,6 +16,9 @@ const Header = () => {
 			case '/sign-up':
 				setLogoPosition(styles.headerLeft)
 				break
+			case '/sign-in':
+				setLogoPosition(styles.headerLeft)
+				break
 			default:
 				setLogoPosition(styles.header)
 				break

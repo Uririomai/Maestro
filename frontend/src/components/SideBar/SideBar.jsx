@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { ROUTES } from '../../utils/routes'
 
 import styles from './sidebar.module.scss'
 import stylesNav from './nav.module.scss'
@@ -10,27 +11,27 @@ const Sidebar = () => {
 			<nav className={`${styles.sidebar__nav} ${stylesNav.nav}`}>
 				<ul className={stylesNav.nav__list}>
 					<li className={stylesNav.nav__item}>
-						<NavLink className={stylesNav.nav__link} to={`/cabinet`}>
+						<NavLink active className={stylesNav.nav__link} to={ROUTES.CABINET}>
 							Кабинет
 						</NavLink>
 					</li>
 					<li className={stylesNav.nav__item}>
-						<NavLink className={stylesNav.nav__link} to={`/orders`}>
+						<NavLink className={stylesNav.nav__link} to={ROUTES.ORDERS}>
 							Заказы
 						</NavLink>
 					</li>
 					<li className={stylesNav.nav__item}>
-						<NavLink className={stylesNav.nav__link} to={`/products`}>
+						<NavLink className={stylesNav.nav__link} to={ROUTES.PRODUCTS}>
 							Товары
 						</NavLink>
 					</li>
 					<li className={stylesNav.nav__item}>
-						<NavLink className={stylesNav.nav__link} to={`/clients`}>
+						<NavLink className={stylesNav.nav__link} to={ROUTES.CLIENTS}>
 							Клиенты
 						</NavLink>
 					</li>
 					<li className={stylesNav.nav__item}>
-						<NavLink className={stylesNav.nav__link} to={`/analytics`}>
+						<NavLink className={stylesNav.nav__link} to={ROUTES.ANALYTICS}>
 							Аналитика
 						</NavLink>
 					</li>

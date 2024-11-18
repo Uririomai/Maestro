@@ -1,12 +1,11 @@
-
 /**
   Нормализация блочной модели
  */
 *,
 ::before,
 ::after {
-  box-sizing: border-box;
-  letter-spacing: 0.03em; /* Добавил межбуквенный интервал*/
+	box-sizing: border-box;
+	letter-spacing: 0.03em; /* Добавил межбуквенный интервал*/
 }
 
 /**
@@ -14,7 +13,7 @@
   у которых есть атрибут class
  */
 :where(ul, ol):where([class]) {
-  padding-left: 0;
+	padding-left: 0;
 }
 
 /**
@@ -23,48 +22,37 @@
  */
 body,
 :where(blockquote, figure):where([class]) {
-  margin: 0;
+	margin: 0;
 }
 
 /**
   Убираем внешние отступы вертикали нужным тегам,
   у которых есть атрибут class
  */
-:where(
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  ul,
-  ol,
-  dl
-):where([class]) {
-  margin-block: 0;
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, dl):where([class]) {
+	margin-block: 0;
 }
 
 :where(dd[class]) {
-  margin-left: 0;
+	margin-left: 0;
 }
 
 :where(fieldset[class]) {
-  margin-left: 0;
-  padding: 0;
-  border: none;
+	margin-left: 0;
+	padding: 0;
+	border: none;
 }
 
 /**
   Убираем стандартный маркер маркированному списку,
   у которого есть атрибут class
  */
-:where(ul[class]) {
-  list-style: none;
+:where(ul[class], li) {
+	list-style: none;
 }
 
 :where(address[class]) {
-  font-style: normal;
+	font-style: normal;
 }
 
 /**
@@ -73,9 +61,9 @@ body,
   чтобы избежать взаимодействие с более сложным селектором
  */
 p {
-  --paragraphMarginBottom: 24px;
+	--paragraphMarginBottom: 24px;
 
-  margin-block: 0;
+	margin-block: 0;
 }
 
 /**
@@ -83,16 +71,15 @@ p {
   который расположен не последним среди своих соседних элементов
  */
 p:where(:not([class]):not(:last-child)) {
-  margin-bottom: var(--paragraphMarginBottom);
+	margin-bottom: var(--paragraphMarginBottom);
 }
-
 
 /**
   Упрощаем работу с изображениями
  */
 img {
-  display: block;
-  max-width: 100%;
+	display: block;
+	max-width: 100%;
 }
 
 /**
@@ -102,15 +89,15 @@ input,
 textarea,
 select,
 button {
-  font: inherit;
+	font: inherit;
 }
 
 html {
-  /**
+	/**
     Пригодится в большинстве ситуаций
     (когда, например, нужно будет "прижать" футер к низу сайта)
    */
-  height: 100%;
+	height: 100%;
 }
 
 /**
@@ -118,19 +105,19 @@ html {
  */
 html,
 :has(:target) {
-  scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 body {
-  /**
+	/**
     Пригодится в большинстве ситуаций
     (когда, например, нужно будет "прижать" футер к низу сайта)
    */
-  min-height: 100%;
-  /**
+	min-height: 100%;
+	/**
     Унифицированный интерлиньяж
    */
-  line-height: 1.5;
+	line-height: 1.5;
 }
 
 /**
@@ -143,13 +130,12 @@ body {
   Чиним баг задержки смены цвета при взаимодействии с svg-элементами
  */
 svg * {
-  transition-property: fill, stroke;
+	transition-property: fill, stroke;
 }
 
 /* Обнуление <address>*/
 address {
-  font-style: normal;
-  
+	font-style: normal;
 }
 
 /**

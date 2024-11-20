@@ -33,7 +33,7 @@ func (i *Website) GetMyWebsite(w http.ResponseWriter, r *http.Request) {
 	adminId := middleware.GetUserId(ctx)
 
 	website, err := i.srv.GetWebsiteByAdminId(ctx, adminId)
-	if errors.Is(err, model.ErrWebsiteNotFound) {
+	if errors.Is(err, model.ErrNotFound) {
 		logger.Error(ctx, "[GetMyWebsite] admin", "website not found", "id", adminId)
 		render.Status(r, http.StatusNotFound)
 		render.JSON(w, r, model.NewErrResp("website not found"))

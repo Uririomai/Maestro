@@ -43,7 +43,7 @@ func (r *Repository) GetWebsiteByAlias(ctx context.Context, alias string) (*mode
 	website := &model.Website{}
 	err := r.conn.GetContext(ctx, website, query, alias)
 	if errors.Is(err, sql.ErrNoRows) {
-		return nil, model.ErrWebsiteNotFound
+		return nil, model.ErrNotFound
 	}
 	if err != nil {
 		return nil, err
@@ -58,7 +58,7 @@ func (r *Repository) GetWebsiteByAdminId(ctx context.Context, adminId int) (*mod
 	website := &model.Website{}
 	err := r.conn.GetContext(ctx, website, query, adminId)
 	if errors.Is(err, sql.ErrNoRows) {
-		return nil, model.ErrWebsiteNotFound
+		return nil, model.ErrNotFound
 	}
 	if err != nil {
 		return nil, err

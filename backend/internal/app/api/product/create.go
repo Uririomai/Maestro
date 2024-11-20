@@ -52,7 +52,7 @@ func (i *Product) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	website, err := i.srv.GetWebsiteByAlias(ctx, req.WebsiteAlias)
-	if errors.Is(err, model.ErrWebsiteNotFound) {
+	if errors.Is(err, model.ErrNotFound) {
 		logger.Error(ctx, "[CreateProduct] website not found", "alias", req.WebsiteAlias)
 		render.Status(r, http.StatusNotFound)
 		render.JSON(w, r, model.NewErrResp("website not found"))

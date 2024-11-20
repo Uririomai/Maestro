@@ -70,10 +70,26 @@ func IsAdmin(ctx context.Context) bool {
 	return token.Role == RoleAdmin
 }
 
+func IsCustomer(ctx context.Context) bool {
+	token, ok := ctx.Value(contextTokenKey).(*UserJWT)
+	if !ok {
+		return false
+	}
+	return token.Role == RoleCustomer
+}
+
 func GetUserId(ctx context.Context) int {
 	token, ok := ctx.Value(contextTokenKey).(*UserJWT)
 	if !ok {
 		return 0
 	}
 	return token.Id
+}
+
+func GetWebsiteAlias(ctx context.Context) string {
+	token, ok := ctx.Value(contextTokenKey).(*UserJWT)
+	if !ok {
+		return ""
+	}
+	return token.Alias
 }

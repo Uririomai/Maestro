@@ -3,6 +3,7 @@ package router
 import (
 	"context"
 	"fmt"
+	"github.com/Nikita-Kolbin/Maestro/internal/app/api/cart"
 	"github.com/Nikita-Kolbin/Maestro/internal/app/api/customer"
 	"github.com/Nikita-Kolbin/Maestro/internal/app/api/file"
 	"github.com/Nikita-Kolbin/Maestro/internal/app/api/product"
@@ -25,6 +26,7 @@ type service interface {
 	customer.Service
 	product.Service
 	file.Service
+	cart.Service
 }
 
 func New(_ context.Context, srv service, address string) http.Handler {
@@ -53,6 +55,7 @@ func New(_ context.Context, srv service, address string) http.Handler {
 	customerAPI := customer.NewAPI(srv)
 	productAPI := product.NewAPI(srv)
 	fileAPI := file.NewAPI(srv)
+	cartAPI := cart.NewAPI(srv)
 
 	// handlers
 	router.Post("/api/admin/sign-up", adminAPI.AdminSignUp)
@@ -69,6 +72,8 @@ func New(_ context.Context, srv service, address string) http.Handler {
 
 	router.Post("/api/file/upload-image", fileAPI.UploadImageFile)
 	router.Get("/api/file/get-image/{image-id}", fileAPI.GetImageFile)
+
+	router.Post("/api/cart/add-product", authMiddleware(cartAPI.AddProductToCart))
 
 	return router
 }

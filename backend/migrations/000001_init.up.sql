@@ -84,17 +84,18 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 CREATE TABLE IF NOT EXISTS carts (
-    id          BIGSERIAL PRIMARY KEY,
-    customer_id BIGINT UNIQUE NOT NULL,
+    id BIGINT PRIMARY KEY,
 
-    FOREIGN KEY (customer_id) REFERENCES customers (id)
+    FOREIGN KEY (id) REFERENCES customers (id)
 );
 
 CREATE TABLE IF NOT EXISTS cart_items (
     id         BIGSERIAL PRIMARY KEY,
-    cart_id    BIGINT NOT NULL ,
-    product_id BIGINT NOT NULL ,
+    cart_id    BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
     count      INTEGER,
+
+    UNIQUE (cart_id, product_id),
 
     FOREIGN KEY (cart_id) REFERENCES carts (id),
     FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE

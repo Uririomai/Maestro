@@ -1,11 +1,32 @@
 basePath: /api
 definitions:
+  model.AddProductToCartRequest:
+    properties:
+      count:
+        type: integer
+      product_id:
+        type: integer
+    type: object
   model.AdminEmailPasswordRequest:
     properties:
       email:
         type: string
       password:
         type: string
+    type: object
+  model.CartItemResponse:
+    properties:
+      count:
+        type: integer
+      product_id:
+        type: integer
+    type: object
+  model.CartResponse:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/model.CartItemResponse'
+        type: array
     type: object
   model.CreateProductRequest:
     properties:
@@ -150,6 +171,45 @@ paths:
       summary: SingUp admin
       tags:
       - admin
+  /cart/add-product:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: product id and count
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.AddProductToCartRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CartResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Add product to customer's cart
+      tags:
+      - cart
   /customer/sign-in:
     post:
       consumes:

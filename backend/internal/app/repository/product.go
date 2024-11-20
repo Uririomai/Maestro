@@ -2,6 +2,8 @@ package repository
 
 import (
 	"context"
+	"database/sql"
+	"errors"
 
 	"github.com/lib/pq"
 
@@ -34,6 +36,33 @@ func (r *Repository) CreateProduct(ctx context.Context, product *model.Product) 
 	}
 
 	return created, nil
+}
+
+func (r *Repository) GetProductById(ctx context.Context, id int) (*model.Product, error) {
+	query := `
+	SELECT id, website_alias, name, description, price, image_ids, active, tags 
+	FROM products WHERE id = $1`
+
+	row := r.conn.QueryRowContext(ctx, query, id)
+
+	product := &model.Product{}
+	if err := row.Scan(
+		&product.Id,
+		&product.WebsiteAlias,
+		&product.Name,
+		&product.Description,
+		&product.Price,
+		pq.Array(&product.ImageIds),
+		&product.Active,
+		pq.Array(&product.Tags),
+	); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, model.ErrNotFound
+		}
+		return nil, err
+	}
+
+	return product, nil
 }
 
 func (r *Repository) GetActiveProductsByAlias(ctx context.Context, alias string) (model.ProductList, error) {

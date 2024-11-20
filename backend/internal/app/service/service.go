@@ -20,7 +20,11 @@ type repository interface {
 	GetCustomerByEmailPassword(ctx context.Context, alias, email, passwordHash string) (*model.Customer, error)
 
 	CreateProduct(ctx context.Context, product *model.Product) (*model.Product, error)
+	GetProductById(ctx context.Context, id int) (*model.Product, error)
 	GetActiveProductsByAlias(ctx context.Context, alias string) (model.ProductList, error)
+
+	UpsertCartItem(ctx context.Context, cartId, productId, count int) error
+	GetCart(ctx context.Context, id int) (*model.Cart, error)
 }
 
 type objectStorage interface {

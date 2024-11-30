@@ -91,6 +91,27 @@ definitions:
       website_alias:
         type: string
     type: object
+  model.UpdateProductRequest:
+    properties:
+      active:
+        type: boolean
+      description:
+        type: string
+      id:
+        type: integer
+      image_ids:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+      price:
+        type: integer
+      tags:
+        items:
+          type: string
+        type: array
+    type: object
   model.UploadFileResponse:
     properties:
       id:
@@ -401,6 +422,45 @@ paths:
           schema:
             $ref: '#/definitions/model.ErrorResponse'
       summary: Get active products in website by alias
+      tags:
+      - product
+  /product/update:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: product info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ProductDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update product
       tags:
       - product
   /website/create:

@@ -36,6 +36,16 @@ type CreateProductRequest struct {
 	Tags         []string `json:"tags"`
 }
 
+type UpdateProductRequest struct {
+	Id          int      `json:"id"`
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Price       int      `json:"price"`
+	ImageIds    []string `json:"image_ids"`
+	Active      bool     `json:"active"`
+	Tags        []string `json:"tags"`
+}
+
 func FromCreateRequestToProduct(req *CreateProductRequest) *Product {
 	return &Product{
 		WebsiteAlias: req.WebsiteAlias,
@@ -45,6 +55,18 @@ func FromCreateRequestToProduct(req *CreateProductRequest) *Product {
 		ImageIds:     req.ImageIds,
 		Active:       req.Active,
 		Tags:         req.Tags,
+	}
+}
+
+func FromUpdateRequestToProduct(req *UpdateProductRequest) *Product {
+	return &Product{
+		Id:          req.Id,
+		Name:        req.Name,
+		Description: req.Description,
+		Price:       req.Price,
+		ImageIds:    req.ImageIds,
+		Active:      req.Active,
+		Tags:        req.Tags,
 	}
 }
 

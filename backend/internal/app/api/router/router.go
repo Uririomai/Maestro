@@ -68,6 +68,7 @@ func New(_ context.Context, srv service, address string) http.Handler {
 	router.Post("/api/customer/sign-in", customerAPI.CustomerSignIn)
 
 	router.Post("/api/product/create", authMiddleware(productAPI.CreateProduct))
+	router.Put("/api/product/update", authMiddleware(productAPI.UpdateProduct))
 	router.Get("/api/product/get-active-by-alias", productAPI.GetActiveProductByAlias)
 
 	router.Post("/api/file/upload-image", fileAPI.UploadImageFile)

@@ -30,12 +30,61 @@ func (r *Repository) CreateProduct(ctx context.Context, product *model.Product) 
 
 	created := &model.Product{}
 
-	if err := row.Scan(&created.Id, &created.WebsiteAlias, &created.Name, &created.Description, &created.Price,
-		pq.Array(&created.ImageIds), &created.Active, pq.Array(&created.Tags)); err != nil {
+	if err := row.Scan(
+		&created.Id,
+		&created.WebsiteAlias,
+		&created.Name,
+		&created.Description,
+		&created.Price,
+		pq.Array(&created.ImageIds),
+		&created.Active,
+		pq.Array(&created.Tags),
+	); err != nil {
 		return nil, err
 	}
 
 	return created, nil
+}
+
+func (r *Repository) UpdateProduct(ctx context.Context, product *model.Product) (*model.Product, error) {
+	query := `
+	UPDATE products 
+	SET name = $1,
+	    description = $2,
+	    price = $3,
+	    image_ids = $4,
+	    active = $5, 
+	    tags = $6
+	WHERE id = $7
+    RETURNING id, website_alias, name, description, price, image_ids, active, tags`
+
+	row := r.conn.QueryRowContext(
+		ctx, query,
+		product.Name,
+		product.Description,
+		product.Price,
+		pq.Array(product.ImageIds),
+		product.Active,
+		pq.Array(product.Tags),
+		product.Id,
+	)
+
+	updated := &model.Product{}
+
+	if err := row.Scan(
+		&updated.Id,
+		&updated.WebsiteAlias,
+		&updated.Name,
+		&updated.Description,
+		&updated.Price,
+		pq.Array(&updated.ImageIds),
+		&updated.Active,
+		pq.Array(&updated.Tags),
+	); err != nil {
+		return nil, err
+	}
+
+	return updated, nil
 }
 
 func (r *Repository) GetProductById(ctx context.Context, id int) (*model.Product, error) {

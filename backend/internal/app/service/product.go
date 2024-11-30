@@ -10,6 +10,10 @@ func (s *Service) CreateProduct(ctx context.Context, product *model.Product) (*m
 	return s.repo.CreateProduct(ctx, product)
 }
 
+func (s *Service) UpdateProduct(ctx context.Context, product *model.Product) (*model.Product, error) {
+	return s.repo.UpdateProduct(ctx, product)
+}
+
 func (s *Service) GetProductById(ctx context.Context, id int) (*model.Product, error) {
 	return s.repo.GetProductById(ctx, id)
 }

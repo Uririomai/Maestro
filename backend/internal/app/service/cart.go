@@ -13,3 +13,7 @@ func (s *Service) AddProductToCart(ctx context.Context, cartId, productId, count
 
 	return s.repo.GetCart(ctx, cartId)
 }
+
+func (s *Service) GetCart(ctx context.Context, cartId int) (*model.Cart, error) {
+	return s.repo.GetCart(ctx, cartId)
+}

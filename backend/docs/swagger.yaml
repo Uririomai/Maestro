@@ -18,8 +18,8 @@ definitions:
     properties:
       count:
         type: integer
-      product_id:
-        type: integer
+      product:
+        $ref: '#/definitions/model.ProductDTO'
     type: object
   model.CartResponse:
     properties:
@@ -67,6 +67,37 @@ definitions:
     properties:
       error:
         type: string
+    type: object
+  model.MakeOrderRequest:
+    properties:
+      comment:
+        type: string
+    type: object
+  model.OrderDTO:
+    properties:
+      comment:
+        type: string
+      customer_id:
+        type: integer
+      date_time:
+        type: string
+      id:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/model.OrderItemDTO'
+        type: array
+      status:
+        type: integer
+      total_sum:
+        type: integer
+    type: object
+  model.OrderItemDTO:
+    properties:
+      count:
+        type: integer
+      product:
+        $ref: '#/definitions/model.ProductDTO'
     type: object
   model.ProductDTO:
     properties:
@@ -231,6 +262,30 @@ paths:
       summary: Add product to customer's cart
       tags:
       - cart
+  /cart/get:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CartResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get customer's cart
+      tags:
+      - cart
   /customer/sign-in:
     post:
       consumes:
@@ -355,6 +410,65 @@ paths:
       summary: Upload image
       tags:
       - file
+  /order/get-my:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OrderDTO'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get customers orders
+      tags:
+      - order
+  /order/make:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: customer comment to order
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.MakeOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OrderDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Make order by cart
+      tags:
+      - order
   /product/create:
     post:
       consumes:

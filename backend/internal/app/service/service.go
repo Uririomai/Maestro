@@ -26,6 +26,10 @@ type repository interface {
 
 	UpsertCartItem(ctx context.Context, cartId, productId, count int) error
 	GetCart(ctx context.Context, id int) (*model.Cart, error)
+
+	CreateOrder(ctx context.Context, customerId int, comment string) (int, error)
+	GetOrderIdsByCustomerId(ctx context.Context, customerId int) ([]int, error)
+	GetOrderById(ctx context.Context, orderId int) (*model.Order, error)
 }
 
 type objectStorage interface {

@@ -5,10 +5,10 @@ type Cart struct {
 }
 
 type CartItem struct {
-	Id        int `db:"id"`
-	CartId    int `db:"cart_id"`
-	ProductId int `db:"product_id"`
-	Count     int `db:"count"`
+	Id     int `db:"id"`
+	CartId int `db:"cart_id"`
+	Count  int `db:"count"`
+	Product
 }
 
 type AddProductToCartRequest struct {
@@ -21,8 +21,8 @@ type CartResponse struct {
 }
 
 type CartItemResponse struct {
-	ProductId int `json:"product_id"`
-	Count     int `json:"count"`
+	Product *ProductDTO `json:"product"`
+	Count   int         `json:"count"`
 }
 
 func FromCartToDTO(cart *Cart) *CartResponse {
@@ -32,8 +32,8 @@ func FromCartToDTO(cart *Cart) *CartResponse {
 
 	for _, item := range cart.Items {
 		resp.Items = append(resp.Items, &CartItemResponse{
-			ProductId: item.ProductId,
-			Count:     item.Count,
+			Product: FromProductToDTO(&item.Product),
+			Count:   item.Count,
 		})
 	}
 

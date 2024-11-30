@@ -72,13 +72,13 @@ CREATE TABLE IF NOT EXISTS customers (
 
 CREATE TABLE IF NOT EXISTS products (
     id             BIGSERIAL PRIMARY KEY,
-    website_alias  TEXT NOT NULL,
-    name           TEXT NOT NULL,
-    description    TEXT NOT NULL,
-    price          INTEGER NOT NULL,
-    image_ids      TEXT[] NOT NULL,
-    active         BOOLEAN NOT NULL,
-    tags           TEXT[] NOT NULL,
+    website_alias  TEXT      NOT NULL,
+    name           TEXT      NOT NULL,
+    description    TEXT      NOT NULL,
+    price          INTEGER   NOT NULL,
+    image_ids      TEXT[]    NOT NULL,
+    active         BOOLEAN   NOT NULL,
+    tags           TEXT[]    NOT NULL,
 
     FOREIGN KEY (website_alias) REFERENCES websites (alias)
 );
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS cart_items (
     id         BIGSERIAL PRIMARY KEY,
     cart_id    BIGINT NOT NULL,
     product_id BIGINT NOT NULL,
-    count      INTEGER,
+    count      INTEGER NOT NULL,
 
     UNIQUE (cart_id, product_id),
 
@@ -102,33 +102,34 @@ CREATE TABLE IF NOT EXISTS cart_items (
 );
 
 CREATE TABLE IF NOT EXISTS saved_products (
-    id          BIGSERIAL PRIMARY KEY,
-    website_id  INTEGER NOT NULL,
-    name        TEXT,
-    description TEXT,
-    price       INTEGER,
-    images_id   TEXT[],
-    active      INTEGER,
-    tags        TEXT DEFAULT '',
+    id             BIGSERIAL PRIMARY KEY,
+    website_alias  TEXT      NOT NULL,
+    name           TEXT      NOT NULL,
+    description    TEXT      NOT NULL,
+    price          INTEGER   NOT NULL,
+    image_ids      TEXT[]    NOT NULL,
+    active         BOOLEAN   NOT NULL,
+    tags           TEXT[]    NOT NULL,
 
-    FOREIGN KEY (website_id) REFERENCES websites (id)
+    FOREIGN KEY (website_alias) REFERENCES websites (alias)
 );
 
 CREATE TABLE IF NOT EXISTS orders (
     id          BIGSERIAL PRIMARY KEY,
-    customer_id BIGINT NOT NULL ,
-    date_time   TEXT,
-    status      INTEGER,
-    comment     TEXT,
+    customer_id BIGINT    NOT NULL,
+    total_sum   INTEGER   NOT NULL,
+    date_time   TIMESTAMP NOT NULL,
+    status      SMALLINT  NOT NULL,
+    comment     TEXT      NOT NULL,
 
     FOREIGN KEY (customer_id) REFERENCES customers (id)
 );
 
 CREATE TABLE IF NOT EXISTS order_items (
     id               BIGSERIAL PRIMARY KEY,
-    order_id         BIGINT NOT NULL,
-    saved_product_id BIGINT NOT NULL,
-    count            INTEGER,
+    order_id         BIGINT    NOT NULL,
+    saved_product_id BIGINT    NOT NULL,
+    count            INTEGER   NOT NULL ,
 
     FOREIGN KEY (order_id) REFERENCES orders (id),
     FOREIGN KEY (saved_product_id) REFERENCES saved_products (id)

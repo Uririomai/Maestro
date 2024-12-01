@@ -1,0 +1,21 @@
+.select {
+	width: 100%;
+	height: var(--input-height);
+	background-color: var(--color-gray-back);
+	border: none;
+	border-radius: var(--border-radius);
+	padding: 8px 12px;
+	margin-top: 4px;
+	&:active {
+		border: none;
+		transition-duration: var(--transition-duration);
+	}
+
+	&__item {
+		height: var(--input-height);
+		background-color: var(--color-gray-back);
+		border: none;
+		border-radius: var(--border-radius);
+		padding: 8px 12px;
+	}
+}

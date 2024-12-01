@@ -2,11 +2,11 @@ import React from 'react'
 
 import styles from './toggle.module.scss'
 
-const Toggle = () => {
+const Toggle = (props) => {
 	return (
 		<>
-			<label htmlFor='qwe' className={styles.toggle}>
-				<input type='checkbox' id='qwe' className={styles.toggle__input} />
+			<label htmlFor={props.id} className={styles.toggle}>
+				<input type='checkbox' id={props.id} className={styles.toggle__input} />
 				<span className={styles.toggle__slider}></span>
 			</label>
 		</>

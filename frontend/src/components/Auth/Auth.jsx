@@ -1,45 +1,68 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { ROUTES } from '../../utils/routes'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+
+import { useAuth } from '../../hooks/useAuth'
 
 import styles from './auth.module.scss'
 
 import GOOGLE_IC from '../../assets/images/reg.sign-up/Google.svg'
 
 import Button from '../button/button'
+import { login, registration } from '../../redux/slices/userSlice'
 
-import { registration, login } from '../../http/userAPI'
+/* import { registration, login } from '../../http/userAPI'
+import { setUser } from '../../redux/slices/userSlice' */
 
 const Auth = () => {
 	const location = useLocation()
-	const isLogin = location.pathname === ROUTES.SIGNIN
+	const isLoginPage = location.pathname === ROUTES.SIGNIN
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const navigate = useNavigate()
 
+	/* const { isAuth } = useAuth() */
+
+	const { isAuth } = useSelector(state => state.user)
+	const dispatch = useDispatch()
+
 	const click = async () => {
 		try {
-			if (isLogin) {
-				const response = await login(email, password)
-				console.log(response)
+			if (isLoginPage) {
+				dispatch(login({ email, password }))
 			} else {
-				const response = await registration(email, password)
-				console.log(response)
+				/* console.log(isAuth) */
+				dispatch(registration({ email, password }))
+				/* console.log(isAuth) */
 			}
-			navigate(ROUTES.CABINET)
-		} catch (e) {}
+		} catch (e) {
+			alert(e)
+		}
 	}
+
+	
+
+	useEffect(() => {
+		console.log('pre redirect')
+		if (isAuth) {
+			console.log('redirect')
+			navigate(ROUTES.CABINET)
+		} else {
+			navigate(ROUTES.SIGNIN)
+		}
+	}, [isAuth])
 
 	return (
 		<section className={styles.auth + ` container`}>
 			<div className={styles.auth__wrapper}>
 				<div>
 					<h1 className={styles.auth__title}>
-						{isLogin ? 'Добро пожаловать обратно' : 'Впервые здесь?'}
+						{isLoginPage ? 'Добро пожаловать обратно' : 'Впервые здесь?'}
 					</h1>
 					<h2 className={styles.auth__subtitle}>
-						{isLogin
+						{isLoginPage
 							? 'Пожалуйста, войдите в свою учетную запись'
 							: 'Создайте учетную запись, чтобы начать'}
 					</h2>
@@ -65,7 +88,7 @@ const Auth = () => {
 							placeholder='Пароль'
 						/>
 					</label>
-					{!isLogin && (
+					{!isLoginPage && (
 						<label htmlFor=''>
 							<input
 								className={styles.auth__field}
@@ -78,7 +101,7 @@ const Auth = () => {
 						</label>
 					)}
 					<Button
-						buttonText={isLogin ? 'Войти' : 'Зарегестрироваться'}
+						buttonText={isLoginPage ? 'Войти' : 'Зарегестрироваться'}
 						colorBack={'var(--color-black)'}
 						colorText={'var(--color-light)'}
 						onClick={click}
@@ -93,7 +116,7 @@ const Auth = () => {
 				</label>
 
 				<div className={styles.auth__text}>
-					{isLogin ? (
+					{isLoginPage ? (
 						<div>
 							Нет аккаунта?{' '}
 							<Link to={ROUTES.SIGNUP} className={styles.auth__link}>

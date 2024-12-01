@@ -5,7 +5,19 @@
 	align-items: center;
 	justify-content: center;
 
-	&Left {
-		justify-content: start;
+	&__wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+	}
+
+	&__logoPosition {
+		margin-inline: auto;
+	}
+
+	&__logout {
+		margin-right: 0;
+		margin-left: auto;
 	}
 }

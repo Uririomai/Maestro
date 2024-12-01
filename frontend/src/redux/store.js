@@ -1,6 +1,9 @@
 import {configureStore} from '@reduxjs/toolkit'
-import {useSelector, useDiscpatch} from 'react-redux'
+import userReducer from './slices/userSlice'
+import {useSelector, useDicpatch} from 'react-redux'
 
 export const store = configureStore({
-    reducer: {},
+    reducer: {
+        user: userReducer,
+    },
 })

@@ -1,13 +1,19 @@
 import React from 'react'
+import Select from '../Select/Select'
+
+import { selectSort } from '../../utils/select'
 
 const Table = ({ data, column, styles }) => {
 	return (
 		<section className={styles.table}>
 			<div className={styles.table__filters}>
 				<input placeholder='Поиск...' className={styles.table__search}></input>
-				<div className={styles.table__sort}>
-					Сортировать по <span className={styles.table__sortarrow}> </span>
-				</div>
+				<Select
+					styles={styles}
+					name={'sort'}
+					id={'sort'}
+					optionArray={selectSort}
+				/>
 			</div>
 			<table className={styles.table__body}>
 				<thead>

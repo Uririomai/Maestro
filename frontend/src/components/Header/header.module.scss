@@ -1,8 +1,23 @@
 .header {
-	width: 90%;
 	height: 64px;
 
 	display: flex;
 	align-items: center;
-	justify-content: start;
+	justify-content: center;
+
+	&__wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+	}
+
+	&__logoPosition {
+		margin-inline: auto;
+	}
+
+	&__logout {
+		margin-right: 0;
+		margin-left: auto;
+	}
 }

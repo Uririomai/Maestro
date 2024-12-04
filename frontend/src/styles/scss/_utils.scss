@@ -1,11 +1,11 @@
 .container {
-    max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
-    margin-inline: auto;
-    padding-inline: var(--container-padding-x);
+	max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+	margin-inline: auto;
+	padding-inline: var(--container-padding-x);
 }
 
 .visually-hidden {
-  @include visually-hidden;
+	@include visually-hidden;
 }
 
 .hide {
@@ -15,25 +15,29 @@
 }
 
 .hidden-mobile {
-    @include mobile {
-        display: none !important;
-    }
+	@include mobile {
+		display: none !important;
+	}
 }
 
 .hidden-tablet {
-    @include tablet {
-        display: none !important;
-    }
+	@include tablet {
+		display: none !important;
+	}
 }
 
 .visible-mobile {
-    @include mobile-above {
-        display: none !important;
-    }
+	@include mobile-above {
+		display: none !important;
+	}
 }
 
 .visible-tablet {
-    @include tablet-above {
-        display: none !important;
-    }
+	@include tablet-above {
+		display: none !important;
+	}
+}
+
+.active {
+	border-left: solid 3px var(--color-black);
 }

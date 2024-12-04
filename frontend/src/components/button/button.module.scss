@@ -12,6 +12,8 @@
 	border-radius: var(--border-radius);
 	cursor: pointer;
 
+	
+
 	&__img {
 		position: absolute;
 		@include square(20px);
@@ -23,6 +25,7 @@
 		font-size: 15px;
 		line-height: 20px;
 	}
+
 
 	@include hover {
 		opacity: 0.8;

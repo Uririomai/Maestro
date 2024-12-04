@@ -2,8 +2,11 @@ import Analytics from "../components/Analytics/Analytics"
 import Auth from "../components/Auth/Auth"
 import Cabinet from "../components/Cabinet/Cabinet"
 import Clients from "../components/Clients/Clients"
+import MenuPage from "../components/MenuPage/MenuPage"
 import Orders from "../components/Orders/Orders"
+import PagesSite from "../components/PagesSite/PagesSite"
 import Products from "../components/Products/Products"
+import ThemePage from "../components/ThemePage/ThemePage"
 
 export const ROUTES = {
 	HOME: '/',
@@ -15,6 +18,9 @@ export const ROUTES = {
 	PRODUCTS: '/products',
 	CLIENTS: '/clients',
 	ANALYTICS: '/analytics',
+	THEME: '/theme',
+	PAGESSITE: '/pages',
+	MENU: '/menu',
 }
 export const authRoutes = [
 	{
@@ -37,6 +43,18 @@ export const authRoutes = [
 	{
 		path: ROUTES.ANALYTICS,
 		Component: Analytics
+	},
+	{
+		path: ROUTES.THEME,
+		Component: ThemePage
+	},
+	{
+		path: ROUTES.PAGESSITE,
+		Component: PagesSite
+	},
+	{
+		path: ROUTES.MENU,
+		Component: MenuPage
 	}
 ]
 export const publicRoutes = [

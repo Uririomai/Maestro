@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import PENCIL from '../../assets/images/pencil.png'
 
@@ -11,15 +11,19 @@ import Toggle from '../Toggle/Toggle'
 import Select from '../Select/Select'
 import { selectMessanger } from '../../utils/select.js'
 import { useAuth } from '../../hooks/useAuth.js'
+import Input from '../Input/Input.jsx'
 
 const Cabinet = () => {
 	const location = useLocation()
-	const [isEditPage, setToggleEdit] = useState(true)
+	const [isEditPage, setToggleEdit] = useState(false)
 
 	const navigate = useNavigate()
-	
+	const email = useSelector(state => state.user.email)
+	const phone = useSelector(state => state.user.phone)
+
 	const toggleEdit = () => {
 		isEditPage ? setToggleEdit(false) : setToggleEdit(true)
+		console.log(isEditPage)
 	}
 
 	return (
@@ -39,20 +43,23 @@ const Cabinet = () => {
 						></Button>
 					</div>
 					<form className={styles.cabinet__inputList}>
-						<label className={styles.cabinet__label} htmlFor='email'>
-							Электронная почта
-							<input
-								className={styles.cabinet__input}
-								type='text'
-								name='email'
-								id='email'
-								disable={!isEditPage}
-								placeholder={useSelector(state => state.user.email)}
-							/>{' '}
-							{/* TODO email and phone from STATE */}
-						</label>
+						<Input
+							type={'email'}
+							id={'email'}
+							isDisable={!isEditPage}
+							placeholder={email}
+							label={'Электронная почта'}
+						/>
 
-						{isEditPage && (
+						<Input
+							type={'tel'}
+							id={'phone'}
+							isDisable={!isEditPage}
+							placeholder={phone}
+							label={'Телефон'}
+						/>
+
+						{/* {isEditPage && (
 							<label className={styles.cabinet__label} htmlFor='password'>
 								Пароль
 								<input
@@ -63,24 +70,11 @@ const Cabinet = () => {
 									disable
 									placeholder='************'
 								/>{' '}
-								{/* TODO email and phone from STATE */}
+							
 							</label>
-						)}
+						)} */}
 
-						<label className={styles.cabinet__label} htmlFor='phone'>
-							Телефон
-							<input
-								className={styles.cabinet__input}
-								type='tel'
-								name='phone'
-								id='phone'
-								disable={!isEditPage}
-								placeholder={useSelector(state => state.user.phone)}
-							/>{' '}
-							{/* TODO email and phone from STATE */}
-						</label>
-
-						{isEditPage && (
+						{/* 	{isEditPage && (
 							<label className={styles.cabinet__label} htmlFor='newpassword'>
 								Новый пароль
 								<input
@@ -90,27 +84,14 @@ const Cabinet = () => {
 									id='newpassword'
 									disable
 								/>{' '}
-								{/* TODO email and phone from STATE */}
+								
 							</label>
-						)}
+						)} */}
 
 						<label className={styles.cabinet__label} htmlFor='messanger'>
 							Мессенджер
 							<ul className={styles.cabinet__messangerList}>
 								<li className={styles.cabinet__messangerItem}>
-									{/* <select
-										className={styles.cabinet__input}
-										type='select'
-										name='messanger'
-										id='messanger'
-										
-									>
-										<option disable value='Добавить мессенджер' selected>
-											Добавить мессенджер
-										</option>
-										<option value='Вконтакте'>Вконтакте</option>
-										<option value='Телеграмм'>Телеграмм</option>
-									</select> */}
 									<Select
 										styles={styles}
 										name={'messanger'}
@@ -129,7 +110,6 @@ const Cabinet = () => {
 									/>{' '}
 								</li>
 							</ul>
-							{/* TODO email and phone from STATE */}
 						</label>
 					</form>
 					<div className={styles.cabinet__notification}>

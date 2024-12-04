@@ -3,7 +3,6 @@ import React from 'react'
 import AppRoutes from '../Routes/AppRoutes'
 
 import Header from '../Header/Header'
-import Auth from '../Auth/Auth'
 
 import styles from './app.scss'
 

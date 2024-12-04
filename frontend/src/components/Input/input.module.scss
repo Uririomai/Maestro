@@ -1,0 +1,51 @@
+.label {
+	display: block;
+	justify-content: start;
+	align-items: center;
+	width: 100%;
+	row-gap: 4px;
+	font-size: 13px;
+	line-height: 16px;
+	font-weight: 500;
+
+	&__input {
+		width: 100%;
+		height: var(--input-height);
+		background-color: var(--color-gray-back);
+		border: none;
+		border-radius: var(--border-radius);
+		padding: 8px 12px;
+		margin-top: 4px;
+
+		&:active {
+			border: none;
+			transition-duration: var(--transition-duration);
+		}
+	}
+	&__textArea {
+		width: 100%;
+		height: 100%;
+		background-color: var(--color-gray-back);
+		border: none;
+		border-radius: var(--border-radius);
+		padding: 8px 12px;
+		margin-top: 4px;
+		resize: none;
+
+		&:active {
+			border: none;
+			transition-duration: var(--transition-duration);
+		}
+	}
+	&__file {
+		width: 100%;
+		height: 150px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		border: dashed 2px var(--color-gray-back);
+		border-radius: var(--border-radius);
+		margin-top: 4px;
+	}
+}

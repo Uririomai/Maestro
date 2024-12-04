@@ -6,6 +6,15 @@
 		list-style: none;
 	}
 
+	&__title {
+		margin-top: 24px;
+		margin-bottom: 16px;
+		color: var(--color-black-text);
+		font-size: 20px;
+		line-height: 24px;
+		font-weight: bold;
+	}
+
 	&__item {
 		display: flex;
 		justify-content: start;
@@ -26,7 +35,5 @@
 		align-items: center;
 
 		border-left: solid 3px var(--color-gray-border);
-		
-	
 	}
 }

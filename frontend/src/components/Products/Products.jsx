@@ -6,6 +6,7 @@ import Sidebar from '../Sidebar/Sidebar'
 
 import cabinetStyles from '../Cabinet/cabinet.module.scss'
 import stylesTable from '../Table/table.module.scss'
+import ProductsModal from './Products-modal/Products-modal'
 
 const Products = () => {
 	const [dataTable, setDataTable] = useState([])
@@ -39,6 +40,7 @@ const Products = () => {
 			<section className={cabinetStyles.personalCabinet + ` container`}>
 				<Sidebar />
 				<Table data={dataTable} column={columns} styles={stylesTable} />
+				<ProductsModal />
 			</section>
 		</>
 	)

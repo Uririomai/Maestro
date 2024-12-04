@@ -10,6 +10,7 @@ const Sidebar = () => {
 		<aside className={styles.sidebar}>
 			<nav className={`${styles.sidebar__nav} ${stylesNav.nav}`}>
 				<ul className={stylesNav.nav__list}>
+					<h2 className={stylesNav.nav__title}>CRM</h2>
 					<li className={stylesNav.nav__item}>
 						<NavLink active className={stylesNav.nav__link} to={ROUTES.CABINET}>
 							Кабинет
@@ -33,6 +34,22 @@ const Sidebar = () => {
 					<li className={stylesNav.nav__item}>
 						<NavLink className={stylesNav.nav__link} to={ROUTES.ANALYTICS}>
 							Аналитика
+						</NavLink>
+					</li>
+					<h2 className={stylesNav.nav__title}>Редактор сайта</h2>
+					<li className={stylesNav.nav__item}>
+						<NavLink className={stylesNav.nav__link} to={ROUTES.THEME}>
+							Темы
+						</NavLink>
+					</li>
+					<li className={stylesNav.nav__item}>
+						<NavLink className={stylesNav.nav__link} to={ROUTES.PAGESSITE}>
+							Страницы
+						</NavLink>
+					</li>
+					<li className={stylesNav.nav__item}>
+						<NavLink className={stylesNav.nav__link} to={ROUTES.MENU}>
+							Меню
 						</NavLink>
 					</li>
 				</ul>

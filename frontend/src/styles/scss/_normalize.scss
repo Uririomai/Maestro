@@ -154,3 +154,16 @@ address {
     
 }
   */
+
+figure {
+	margin: 0;
+	padding: 0;
+}
+dialog {
+	padding: 0;
+	border: none;
+
+	/* &::backdrop {
+		background: none;
+	} */
+}

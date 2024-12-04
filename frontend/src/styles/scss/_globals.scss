@@ -12,6 +12,10 @@ body {
 	background-color: var(--color-light);
 }
 
+body:has(dialog[open]) {
+	overflow: hidden;
+}
+
 a,
 button,
 input,
@@ -38,5 +42,3 @@ h2 {
 h3 {
 	@include fluid-text(28, 24);
 }
-
-

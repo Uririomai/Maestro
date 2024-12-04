@@ -12,6 +12,10 @@ body {
 	background-color: var(--color-light);
 }
 
+body:has(dialog[open]) {
+	overflow: hidden;
+}
+
 a,
 button,
 input,

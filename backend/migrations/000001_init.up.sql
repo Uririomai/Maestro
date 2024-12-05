@@ -15,38 +15,34 @@ CREATE TABLE IF NOT EXISTS admins (
 );
 
 CREATE TABLE IF NOT EXISTS websites (
-    id                SERIAL PRIMARY KEY,
-    admin_id          BIGINT NOT NULL,
-    alias             TEXT UNIQUE NOT NULL,
-
---     background_color  TEXT DEFAULT 'white',
---     text_color        TEXT DEFAULT 'black',
---     font              TEXT DEFAULT 'Arial',
---
---     main_one          TEXT DEFAULT '',
---     main_two          TEXT DEFAULT '',
---
---     about_one         TEXT DEFAULT '',
---     about_two         TEXT DEFAULT '',
---     about_three       TEXT DEFAULT '',
---     about_four        TEXT DEFAULT '',
---     about_five        TEXT DEFAULT '',
---     about_six         TEXT DEFAULT '',
---     about_image_one   INTEGER DEFAULT 0,
---     about_image_two   INTEGER DEFAULT 0,
---     about_image_three INTEGER DEFAULT 0,
---     about_image_four  INTEGER DEFAULT 0,
---
---     new_product_one   TEXT DEFAULT '',
---     product_one       TEXT DEFAULT '',
---
---     contact_one       TEXT DEFAULT '',
---     contact_two       TEXT DEFAULT '',
---     contact_three     TEXT DEFAULT '',
---     contact_four      TEXT DEFAULT '',
---     contact_five      TEXT DEFAULT '',
+    id       SERIAL PRIMARY KEY,
+    admin_id BIGINT NOT NULL,
+    alias    TEXT UNIQUE NOT NULL,
+    active   BOOLEAN NOT NULL DEFAULT false,
 
     FOREIGN KEY (admin_id) REFERENCES admins (id)
+);
+
+CREATE TABLE IF NOT EXISTS sections (
+    id            BIGSERIAL PRIMARY KEY,
+    uuid          TEXT UNIQUE,
+    website_alias TEXT NOT NULL,
+    width         SMALLINT NOT NULL,
+    full_width    BOOLEAN NOT NULL,
+    height        SMALLINT NOT NULL,
+    full_height   BOOLEAN NOT NULL,
+
+    FOREIGN KEY (website_alias) REFERENCES websites (alias)
+);
+
+CREATE TABLE IF NOT EXISTS blocks (
+    id            SERIAL PRIMARY KEY,
+    section_uuid  TEXT NOT NULL,
+    website_alias TEXT NOT NULL,
+    text          TEXT NOT NULL DEFAULT '',
+
+    FOREIGN KEY (section_uuid) REFERENCES sections (uuid),
+    FOREIGN KEY (website_alias) REFERENCES websites (alias)
 );
 
 CREATE TABLE IF NOT EXISTS customers (

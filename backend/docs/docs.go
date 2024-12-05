@@ -774,6 +774,68 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/website/set-style": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "website"
+                ],
+                "summary": "Set new website styles",
+                "parameters": [
+                    {
+                        "description": "styles and alias",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.SetWebsiteStyleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.WebsiteStylesDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/model.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -795,6 +857,23 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.BlockDTO": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "section_uuid": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "website_alias": {
                     "type": "string"
                 }
             }
@@ -966,6 +1045,80 @@ const docTemplate = `{
                 }
             }
         },
+        "model.SectionDTO": {
+            "type": "object",
+            "properties": {
+                "blocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.BlockDTO"
+                    }
+                },
+                "full_height": {
+                    "type": "boolean"
+                },
+                "full_width": {
+                    "type": "boolean"
+                },
+                "height": {
+                    "type": "integer"
+                },
+                "uuid": {
+                    "type": "string"
+                },
+                "website_alias": {
+                    "type": "string"
+                },
+                "width": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.SetBlockRequest": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.SetSectionRequest": {
+            "type": "object",
+            "properties": {
+                "blocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.SetBlockRequest"
+                    }
+                },
+                "full_height": {
+                    "type": "boolean"
+                },
+                "full_width": {
+                    "type": "boolean"
+                },
+                "height": {
+                    "type": "integer"
+                },
+                "width": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.SetWebsiteStyleRequest": {
+            "type": "object",
+            "properties": {
+                "sections": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.SetSectionRequest"
+                    }
+                },
+                "website_alias": {
+                    "type": "string"
+                }
+            }
+        },
         "model.UpdateProductRequest": {
             "type": "object",
             "properties": {
@@ -1009,11 +1162,25 @@ const docTemplate = `{
         "model.WebsiteDTO": {
             "type": "object",
             "properties": {
+                "active": {
+                    "type": "boolean"
+                },
                 "alias": {
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
+                }
+            }
+        },
+        "model.WebsiteStylesDTO": {
+            "type": "object",
+            "properties": {
+                "sections": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.SectionDTO"
+                    }
                 }
             }
         }

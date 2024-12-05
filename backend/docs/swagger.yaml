@@ -14,6 +14,17 @@ definitions:
       password:
         type: string
     type: object
+  model.BlockDTO:
+    properties:
+      id:
+        type: integer
+      section_uuid:
+        type: string
+      text:
+        type: string
+      website_alias:
+        type: string
+    type: object
   model.CartItemResponse:
     properties:
       count:
@@ -122,6 +133,54 @@ definitions:
       website_alias:
         type: string
     type: object
+  model.SectionDTO:
+    properties:
+      blocks:
+        items:
+          $ref: '#/definitions/model.BlockDTO'
+        type: array
+      full_height:
+        type: boolean
+      full_width:
+        type: boolean
+      height:
+        type: integer
+      uuid:
+        type: string
+      website_alias:
+        type: string
+      width:
+        type: integer
+    type: object
+  model.SetBlockRequest:
+    properties:
+      text:
+        type: string
+    type: object
+  model.SetSectionRequest:
+    properties:
+      blocks:
+        items:
+          $ref: '#/definitions/model.SetBlockRequest'
+        type: array
+      full_height:
+        type: boolean
+      full_width:
+        type: boolean
+      height:
+        type: integer
+      width:
+        type: integer
+    type: object
+  model.SetWebsiteStyleRequest:
+    properties:
+      sections:
+        items:
+          $ref: '#/definitions/model.SetSectionRequest'
+        type: array
+      website_alias:
+        type: string
+    type: object
   model.UpdateProductRequest:
     properties:
       active:
@@ -150,10 +209,19 @@ definitions:
     type: object
   model.WebsiteDTO:
     properties:
+      active:
+        type: boolean
       alias:
         type: string
       id:
         type: integer
+    type: object
+  model.WebsiteStylesDTO:
+    properties:
+      sections:
+        items:
+          $ref: '#/definitions/model.SectionDTO'
+        type: array
     type: object
 host: localhost:8082
 info:
@@ -642,6 +710,45 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Get admins website
+      tags:
+      - website
+  /website/set-style:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: styles and alias
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.SetWebsiteStyleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.WebsiteStylesDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Set new website styles
       tags:
       - website
 securityDefinitions:

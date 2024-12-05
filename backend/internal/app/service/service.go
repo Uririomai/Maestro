@@ -15,6 +15,8 @@ type repository interface {
 	GetWebsiteByAlias(ctx context.Context, alias string) (*model.Website, error)
 	GetWebsiteByAdminId(ctx context.Context, adminId int) (*model.Website, error)
 	AdminHaveWebsite(ctx context.Context, adminId int) (bool, error)
+	CreateSections(ctx context.Context, websiteAlias string, sections []*model.Section) error
+	GetSectionsByWebsiteAlias(ctx context.Context, websiteAlias string) ([]*model.Section, error)
 
 	CreateCustomer(ctx context.Context, alias, email, passwordHash string) (int, error)
 	GetCustomerByEmailPassword(ctx context.Context, alias, email, passwordHash string) (*model.Customer, error)

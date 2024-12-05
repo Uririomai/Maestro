@@ -42,8 +42,9 @@ func New(_ context.Context, srv service, address string) http.Handler {
 
 	// CORS
 	router.Use(cors.Handler(cors.Options{
-		AllowedOrigins: []string{"*", "https://*", "http://*"},
+		AllowedOrigins: []string{"*", "https://*", "http://*", "http://127.0.0.1:3000"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
+		AllowedHeaders: []string{"*", "Accept", "Authorization", "Content-Type", "X-Token"},
 	}))
 
 	// swagger
@@ -65,6 +66,7 @@ func New(_ context.Context, srv service, address string) http.Handler {
 	router.Post("/api/admin/sign-in", adminAPI.AdminSignIn)
 
 	router.Post("/api/website/create", authMiddleware(websiteAPI.CreateWebsite))
+	router.Post("/api/website/set-style", authMiddleware(websiteAPI.SetStyle))
 	router.Get("/api/website/get-my-website", authMiddleware(websiteAPI.GetMyWebsite))
 
 	router.Post("/api/customer/sign-up", customerAPI.CustomerSignUp)
